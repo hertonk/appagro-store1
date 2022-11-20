@@ -1,0 +1,124 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Grocery Delivery App  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2021-present initappz.
+ -->
+<ngx-spinner></ngx-spinner>
+<div class="animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Your Products')}}
+                    <div class="card-header-actions">
+                        <button type="link" class="btn btn-primary" (click)="createNew()">{{util.translate('Add New')}}
+                        </button>
+
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row flex_row">
+                        <div class="col-lg-6">
+                            <input type="text" class="form-control form-control-lg" id="name"
+                                [placeholder]="util.translate('Search')" (input)="onSearchChange($event.target.value)">
+                        </div>
+
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>{{util.translate('Id')}} </th>
+                                <th>{{util.translate('Cover')}} </th>
+                                <th (click)="sortByName()" style="cursor: pointer;">{{util.translate('Name')}} &nbsp; <i
+                                        class="fa fa-sort-down fa-lg"></i> </th>
+                                <th>{{util.translate('Price')}} </th>
+                                <th>{{util.translate('In Stock')}} </th>
+                                <th (click)="sortByRating()" style="cursor: pointer;">{{util.translate('Rating')}}
+                                    &nbsp; <i class="fa fa-sort-down fa-lg"></i></th>
+                                <th>{{util.translate('Action')}} </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of dummy">
+                                <td *ngFor="let item of [1,2,3,4,5,6,7]">
+                                    <ngx-skeleton-loader count="1" appearance="line"></ngx-skeleton-loader>
+                                </td>
+                            </tr>
+                            <tr
+                                *ngFor="let item of products | paginate: {id:'pagin1', itemsPerPage: 10, currentPage: page }">
+                                <td>{{item.id}}</td>
+                                <td class="text-center">
+                                    <div class="avatar">
+                                        <img [src]="api.imageUrl+ item.cover" onError="this.src='assets/imgs/user.png'"
+                                            class="img-avatar" style="height: 36px;width: 36px;">
+                                    </div>
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    <span *ngIf="item.discount == 0">
+
+                                        <span *ngIf="util.cside =='left'">
+                                            {{util.currecny}} {{item.original_price}}
+                                        </span>
+                                        <span *ngIf="util.cside =='right'">
+                                            {{item.original_price}} {{util.currecny}}
+                                        </span>
+                                    </span>
+                                    <span *ngIf="item.discount > 0">
+                                        <span style="text-decoration: line-through;">
+                                            <span *ngIf="util.cside =='left'">
+                                                {{util.currecny}} {{item.original_price}}
+                                            </span>
+                                            <span *ngIf="util.cside =='right'">
+                                                {{item.original_price}} {{util.currecny}}
+                                            </span>
+                                        </span>
+                                        <span style="font-weight: bold;">
+                                            <span *ngIf="util.cside =='left'">
+                                                {{util.currecny}} {{item.sell_price}}
+                                            </span>
+                                            <span *ngIf="util.cside =='right'">
+                                                {{item.sell_price}} {{util.currecny}}
+                                            </span>
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-primary" (click)="updateStock(item)"
+                                        *ngIf="item.in_stoke == 1">{{util.translate('In Stock')}} </span>
+                                    <span class="badge badge-danger" (click)="updateStock(item)"
+                                        *ngIf="item.in_stoke == 0">{{util.translate('Out Of Stock')}} </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="item.total_rating >0">
+                                        {{item.rating}} / ({{item.total_rating}})
+                                    </span>
+                                    <span *ngIf="item.total_rating == 0">
+                                        {{item.rating}}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge badge-success" (click)="updateStatus(item)"
+                                        *ngIf="item.status == 1">{{util.translate('Active')}} </span>
+                                    <span class="badge badge-danger" (click)="updateStatus(item)"
+                                        *ngIf="item.status == 0">{{util.translate('Deactivated')}} </span>
+                                    <span class="badge badge-primary"
+                                        (click)="viewProduct(item)">{{util.translate('View')}} </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <div *ngIf="products?.length > 0">
+                        <pagination-controls id="pagin1" (pageChange)="page = $event"></pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Grocery Delivery App  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2021-present initappz.
+ -->
+<app-header [navbarBrandRouterLink]="['/dashboard']" [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/brand/big_logo.png', width: 89, height: 25, alt: 'Your Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/brand/tiny.png', width: 30, height: 30, alt: 'Your Logo'}"
+  [sidebarToggler]="'lg'" [asideMenuToggler]="false" [mobileAsideMenuToggler]="false">
+
+  <ul class="nav navbar-nav ml-auto" style="margin-right: 20px;">
+
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+        dropdownToggle (click)="false">
+        <i class="fa fa-user-circle-o fa-lg"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+
+        <a class="dropdown-item" (click)="openSettings()"><i class="fa fa-wrench"></i> {{util.translate('Setting')}}
+        </a>
+        <a class="dropdown-item" (click)="logout()"><i class="fa fa-lock"></i> {{util.translate('Logout')}} </a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized"
+    (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav [navItems]="navData" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <main class="main">
+    <cui-breadcrumb>
+    </cui-breadcrumb>
+
+    <div class="container-fluid">
+      <router-outlet> </router-outlet>
+    </div>
+  </main>
+
+</div>
+<app-footer>
+  <span><a href="https://initappz.com/" target="_blank">initappz</a> &copy; {{currentYear}} initappz.</span>
+
+</app-footer>

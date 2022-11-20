@@ -1,0 +1,159 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Grocery Delivery App  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2021-present initappz.
+ -->
+<ngx-spinner></ngx-spinner>
+<div id="sign-in-button"></div>
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form *ngIf="util.user_login_with == 0">
+                  <h1>{{util.translate('Login')}} </h1>
+                  <p class="text-muted">{{util.translate('Sign In to your account')}} </p>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="cil-at"></i></span>
+                    </div>
+                    <input type="email" class="form-control" [(ngModel)]="email"
+                      [placeholder]="util.translate('Email Address')" autocomplete="email" required
+                      [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" [(ngModel)]="password"
+                      [placeholder]="util.translate('Password')" autocomplete="current-password" required
+                      [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4" (click)="onLogin()">{{util.translate('Login')}}
+                      </button>
+                    </div>
+                    <div class="col-6 text-right" (click)="forgot()">
+                      <button type="button" class="btn btn-link px-0">{{util.translate('Forgot password?')}} </button>
+                    </div>
+                  </div>
+
+                </form>
+
+                <form *ngIf="util.user_login_with == 1">
+                  <h1>{{util.translate('Login')}} </h1>
+                  <p class="text-muted">{{util.translate('Sign In to your account')}} </p>
+                  <div class="row">
+                    <div class="col-3">
+                      <div *ngIf="util.countrys?.length">
+                        <select id="ccmonth" [(ngModel)]="country_code" [ngModelOptions]="{standalone: true}"
+                          class="form-control">
+                          <option *ngFor="let item of util.countrys" [value]="item.dialling_code">
+                            {{item.country_name}} </option>
+                        </select>
+                      </div>
+                      <div *ngIf="!util.countrys?.length">
+                        <input type="tel" class="form-control" [(ngModel)]="country_code"
+                          [placeholder]="util.translate('Country Code')" [disabled]="true" autocomplete="phone" required
+                          [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                    <div class="col-9">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="cil-phone"></i></span>
+                        </div>
+                        <input type="number" class="form-control" [(ngModel)]="phone"
+                          [placeholder]="util.translate('Phone')" autocomplete="phone" required
+                          [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" [(ngModel)]="password"
+                      [placeholder]="util.translate('Password')" autocomplete="current-password" required
+                      [ngModelOptions]="{standalone: true}">
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4"
+                        (click)="loginWithPhonePassword()">{{util.translate('Login')}}
+                      </button>
+                    </div>
+                    <div class="col-6 text-right" (click)="forgot()">
+                      <button type="button" class="btn btn-link px-0">{{util.translate('Forgot password?')}} </button>
+                    </div>
+                  </div>
+
+                </form>
+
+                <form *ngIf="util.user_login_with == 2">
+                  <h1>{{util.translate('Login')}} </h1>
+                  <p class="text-muted">{{util.translate('Sign In to your account')}} </p>
+                  <div class="row">
+                    <div class="col-3">
+                      <div *ngIf="util.countrys?.length">
+                        <select id="ccmonth" [(ngModel)]="country_code" [ngModelOptions]="{standalone: true}"
+                          class="form-control">
+                          <option *ngFor="let item of util.countrys" [value]="item.dialling_code">
+                            {{item.country_name}} </option>
+                        </select>
+                      </div>
+                      <div *ngIf="!util.countrys?.length">
+                        <input type="tel" class="form-control" [(ngModel)]="country_code"
+                          [placeholder]="util.translate('Country Code')" [disabled]="true" autocomplete="phone" required
+                          [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                    <div class="col-9">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="cil-phone"></i></span>
+                        </div>
+                        <input type="number" class="form-control" [(ngModel)]="phone"
+                          [placeholder]="util.translate('Phone')" autocomplete="phone" required
+                          [ngModelOptions]="{standalone: true}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="otp_content" *ngIf="otpSent == true">
+                    <p>{{util.translate('Enter OTP')}} </p>
+                    <ng-otp-input (onInputChange)="onOtpChange($event)"
+                      [config]="{length:6,inputStyles:{'width': '40px','height': '40px','border':'1px solid lightgray','background-color':'white'}}">
+                    </ng-otp-input>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="button" class="btn btn-primary px-4" *ngIf="otpSent == false"
+                        (click)="loginWithPhoneOTP()">{{util.translate('Send OTP')}}
+                      </button>
+                      <button type="button" class="btn btn-primary px-4" *ngIf="otpSent == true"
+                        (click)="verifyOTP()">{{util.translate('Verify OTP')}}
+                      </button>
+                    </div>
+                    <div class="col-6 text-right" (click)="forgot()">
+                      <button type="button" class="btn btn-link px-0">{{util.translate('Forgot password?')}} </button>
+                    </div>
+                  </div>
+
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

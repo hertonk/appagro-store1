@@ -1,0 +1,478 @@
+<!--
+  Authors : initappz (Rahul Jograna)
+  Website : https://initappz.com/
+  App Name : Grocery Delivery App  This App Template Source code is licensed as per the
+  terms found in the Website https://initappz.com/license
+  Copyright and Good Faith Purchasers © 2021-present initappz.
+ -->
+<ngx-spinner></ngx-spinner>
+<div class="animated fadeIn">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {{util.translate('Products Details')}}
+                </div>
+                <div class="card-body reset-table p-t-0">
+
+                    <div class="form-group row">
+                        <div class="col-sm-6" (click)="openCate()">
+                            <label>{{util.translate('Select Category')}} </label>
+                            <input style="background: transparent !important;" type="text" disabled="true"
+                                [(ngModel)]="cateName" class="form-control"
+                                [placeholder]="util.translate('Select Category')">
+                        </div>
+                        <div class="col-sm-6" (click)="openSub()">
+                            <label>{{util.translate('Select Sub Category')}} </label>
+                            <input style="background: transparent !important;" type="text" disabled="true"
+                                [(ngModel)]="subName" class="form-control"
+                                [placeholder]="util.translate('Select Sub Category')">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Name')}} </label>
+                            <input type="text" [(ngModel)]="name" class="form-control"
+                                [placeholder]="util.translate('Name')">
+                        </div>
+                        <div class="col-sm-6">
+                            <label> {{util.translate('Real price')}} </label>
+                            <input type="text" [(ngModel)]="realPrice" (ngModelChange)="onRealPrice($event)"
+                                class="form-control" [placeholder]="util.translate('Real price')">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Sell price')}} </label>
+                            <input type="text" [(ngModel)]="sellPrice" disabled="true" class="form-control"
+                                [placeholder]="util.translate('Sell price')">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Discount %')}} </label>
+                            <input type="text" [(ngModel)]="discount" (ngModelChange)="onDicount($event)"
+                                class="form-control" [placeholder]="util.translate('Discount %')">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Exp Date')}} </label>
+                            <input type="date" [(ngModel)]="exp_date" class="form-control"
+                                [placeholder]="util.translate('Exp Date')">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label> {{util.translate('Status')}}</label>
+                            <select name="select" [(ngModel)]="status" class="form-control">
+                                <option [value]='1'>{{util.translate('Available')}} </option>
+                                <option [value]='0'>{{util.translate('Hide')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{util.translate('In Stock')}} </label>
+                            <select name="select" [(ngModel)]="in_stoke" class="form-control">
+                                <option [value]='1'>{{util.translate('In Stock')}} </option>
+                                <option [value]='0'>{{util.translate('Out Of Stock')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Kind')}} </label>
+                            <select name="select" [(ngModel)]="veg" class="form-control">
+                                <option [value]='1'>{{util.translate('Veg')}} </option>
+                                <option [value]='0'>{{util.translate('Non Veg')}} </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Have Gram')}} </label>
+                            <select name="select" [(ngModel)]="have_gram" class="form-control">
+                                <option [value]='1'>{{util.translate('Yes')}} </option>
+                                <option [value]='0'> {{util.translate('No')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="have_gram  ==='1'">
+                            <label>{{util.translate('Gram')}} </label>
+                            <input type="number" [(ngModel)]="gram" class="form-control"
+                                [placeholder]="util.translate('Gram')">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Have KG')}} </label>
+                            <select name="select" [(ngModel)]="have_kg" class="form-control">
+                                <option [value]='1'>{{util.translate('Yes')}} </option>
+                                <option [value]='0'>{{util.translate('No')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="have_kg  ==='1'">
+                            <label>{{util.translate('KG')}} </label>
+                            <input type="number" [(ngModel)]="kg" class="form-control"
+                                [placeholder]="util.translate('KG')">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Have Liter')}} </label>
+                            <select name="select" [(ngModel)]="have_liter" class="form-control">
+                                <option [value]='1'>{{util.translate('Yes')}} </option>
+                                <option [value]='0'>{{util.translate('No')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="have_liter  ==='1'">
+                            <label>{{util.translate('Liter')}} </label>
+                            <input type="number" [(ngModel)]="liter" class="form-control"
+                                [placeholder]="util.translate('Liter')">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Have ML')}} </label>
+                            <select name="select" [(ngModel)]="have_ml" class="form-control">
+                                <option [value]='1'>{{util.translate('Yes')}} </option>
+                                <option [value]='0'>{{util.translate('No')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="have_ml  ==='1'">
+                            <label>{{util.translate('ML')}} </label>
+                            <input type="number" [(ngModel)]="ml" class="form-control"
+                                [placeholder]="util.translate('ML')">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Have PCs')}} </label>
+                            <select name="select" [(ngModel)]="have_pcs" class="form-control">
+                                <option [value]='1'>{{util.translate('Yes')}} </option>
+                                <option [value]='0'>{{util.translate('No')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6" *ngIf="have_pcs ==='1'">
+                            <label>{{util.translate('PCs')}} </label>
+                            <input type="number" [(ngModel)]="pcs" class="form-control"
+                                [placeholder]="util.translate('PCs')">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label>{{util.translate('Size')}} </label>
+                            <select name="select" (ngModelChange)="changeSize($event)" [(ngModel)]="size"
+                                class="form-control">
+                                <option [value]='1'>{{util.translate('Have Variations')}} </option>
+                                <option [value]='0'>{{util.translate('No Variations')}} </option>
+                            </select>
+                        </div>
+                        <div class="col-sm-6">
+                            <div *ngFor="let item of variations;let i = index;">
+                                <div
+                                    style="font-size: 15px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;font-weight: bold;">
+                                    <label style="margin: 0px !important;font-weight: bold;">{{item.title}}</label>
+                                    <i class="fa fa-plus-circle fa-lg" style="font-weight: bold;margin: 0px 10px;"
+                                        (click)="addItem(i)"></i>
+                                    <i class="fa fa-trash fa-lg" style="font-weight: bold;margin: 0px 10px;"
+                                        (click)="delete(item)"></i>
+                                </div>
+                                <div *ngFor="let sub of item.items;let j = index"
+                                    style="font-size: 15px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;font-weight: bold;">
+                                    <div
+                                        style="font-size: 15px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;font-weight: bold;">
+                                        {{sub.title}}
+                                        <p *ngIf="sub.discount === 0 || sub.discount ==='0'"
+                                            style="margin: 0px !important;">
+                                            <span>
+                                                <span *ngIf="util.cside =='left'">
+                                                    {{util.currecny}} {{sub.price}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">
+                                                    {{sub.price}} {{util.currecny}}
+                                                </span>
+                                            </span>
+                                        </p>
+                                        <p class="price_lbl" style="margin: 0px !important;"
+                                            *ngIf="sub.discount !== 0 && sub.discount !=='0'">
+                                            <span style="text-decoration:line-through;">
+                                                <span *ngIf="util.cside =='left'">
+                                                    {{util.currecny}} {{sub.price}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">
+                                                    {{sub.price}} {{util.currecny}}
+                                                </span>
+                                            </span>
+                                            <span class="sell">
+                                                <span *ngIf="util.cside =='left'">
+                                                    {{util.currecny}} {{sub.discount}}
+                                                </span>
+                                                <span *ngIf="util.cside =='right'">
+                                                    {{sub.discount}} {{util.currecny}}
+                                                </span>
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                    <i class="fa fa-edit fa-lg" style="font-weight: bold;margin: 0px 10px;"
+                                        (click)="editSub(i,sub,j)"></i>
+                                    <i class="fa fa-trash fa-lg" style="font-weight: bold;margin: 0px 10px;"
+                                        (click)="deleteSub(i,sub)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>{{util.translate('Descriptions')}} </label>
+                            <textarea rows="5" cols="5" [(ngModel)]="description" class="form-control"
+                                [placeholder]="util.translate('Descriptions')"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>{{util.translate('Key feature')}} </label>
+                            <textarea rows="5" cols="5" [(ngModel)]="key_features" class="form-control"
+                                [placeholder]="util.translate('Key feature')"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label>{{util.translate('Disclaimer')}} </label>
+                            <textarea rows="5" cols="5" [(ngModel)]="disclaimer" class="form-control"
+                                [placeholder]="util.translate('Disclaimer')"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload cover image here')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="preview_banner($event.target.files)" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ coverImage" alt=""
+                                style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 1')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'1')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image1" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 2')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'2')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image2" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 3')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'3')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image3" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 4')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'4')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image4" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 5')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'5')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image5" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                        <label class="col-sm-4 col-form-label">{{util.translate('Upload image 6')}} </label>
+                        <div class="col-sm-4">
+                            <input (change)="others($event.target.files,'6')" type="file" class="form-control"
+                                accept="image/*">
+                        </div>
+                        <div class="col-sm-4">
+                            <img [src]="api.imageUrl+ image6" alt="" style="height: 100px;width: 100px;float: right;"
+                                onError="this.src='assets/imgs/user.png'">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <button type="button" (click)="submit()"
+                            class="btn btn-primary btn-md btn-block waves-effect text-center">{{util.translate('Submit')}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #content="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{util.translate('Select Category')}} </h5>
+                <button type="button" class="close" (click)="content.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body long_content">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label>{{util.translate('Select Category')}} </label>
+                        <input style="background: transparent !important;" [(ngModel)]="cateString"
+                            (ngModelChange)="searchCates($event)" type="text" class="form-control"
+                            [placeholder]="util.translate('Search Category')">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div *ngFor="let item of category" (click)="cateId = item.id"
+                            style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;margin-bottom: 5px; border-bottom: 1px solid lightgray; padding-bottom: 5px;">
+                            <p style="margin: 0px;"> {{item.name}}</p>
+                            <i class="fa fa-check-square-o fa-lg" *ngIf="item.id === cateId"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="content.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="close()">{{util.translate('Save')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #contentSub="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{util.translate('Select Sub Category')}} </h5>
+                <button type="button" class="close" (click)="contentSub.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body long_content">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label>{{util.translate('Select Sub Category')}} </label>
+                        <input style="background: transparent !important;" [(ngModel)]="subString"
+                            (ngModelChange)="searchSubCate($event)" type="text" class="form-control"
+                            [placeholder]="util.translate('Search Category')">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <div *ngFor="let item of subCates" (click)="subId = item.id"
+                            style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;margin-bottom: 5px; border-bottom: 1px solid lightgray; padding-bottom: 5px;">
+                            <p style="margin: 0px;"> {{item.name}}</p>
+                            <i class="fa fa-check-square-o fa-lg" *ngIf="item.id === subId"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="contentSub.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="close2()">{{util.translate('Save')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div bsModal #contentVarient="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{util.translate('Add item to variations')}} </h5>
+                <button type="button" class="close" (click)="contentVarient.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body long_content">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label> {{util.translate('Add-ons name')}} </label>
+                        <input style="background: transparent !important;" [(ngModel)]="variant_title" type="text"
+                            class="form-control" [placeholder]="util.translate('Add-ons name')">
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label>{{util.translate('Add-ons price')}} </label>
+                        <input style="background: transparent !important;" [(ngModel)]="variant_price" type="number"
+                            class="form-control" [placeholder]="util.translate('Add-ons price')">
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label>{{util.translate('Add-ons discount')}} </label>
+                        <input style="background: transparent !important;" [(ngModel)]="variant_discount" type="number"
+                            class="form-control" [placeholder]="util.translate('Add-ons discount')">
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    (click)="contentVarient.hide()">{{util.translate('Close')}}</button>
+                <button type="button" class="btn btn-primary" (click)="close3()">{{util.translate('Save')}}</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
